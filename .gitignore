@@ -1,0 +1,38 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Firebase & Security (CRITICAL)
+# Do not commit your service account key or environment variables!
+serviceAccountKey.json
+.env
+*.pem
+
+# IDE / Editor folders
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS Metadata
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Selenium & Testing
+# Avoid committing local drivers or test screenshots
+chromedriver
+geckodriver
+drivers/
+screenshots/
+test-results/
+
+# Build outputs
+dist/
+build/
