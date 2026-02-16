@@ -70,30 +70,8 @@ passport.deserializeUser(async (id, done) => {
 // Helper function to find or create OAuth user
 async function findOrCreateOAuthUser(profile, provider) {
     const email = profile.emails && profile.emails[0] ? profile.emails[0].value : null;
-    const emailKey = email ? email.replace(/\./g, '_') : null;
-    
-    // Try to find existing user by email
-    if (emailKey) {
-        const lookup = await db.ref(`email_lookup/${emailKey}`).once('value');
-        if (lookup.exists()) {
-            const userId = lookup.val().uid;
-            const userSnapshot = await db.ref(`users/${userId}`).once('value');
-            const userData = userSnapshot.val();
-            
-            // Update OAuth info if not already set
-            if (!userData.oauthProvider) {
-                await db.ref(`users/${userId}`).update({
-                    oauthProvider: provider,
-                    oauthId: profile.id,
-                    displayName: profile.displayName
-                });
-            }
-            
-            return { ...userData, id: userId };
-        }
-    }
-    
-    // Create new user
+
+    // Always create a new OAuth user (email is not a unique key)
     const randomId = crypto.randomBytes(8).toString('hex');
     const newUser = {
         systemId: randomId,
@@ -107,12 +85,7 @@ async function findOrCreateOAuthUser(profile, provider) {
     };
     
     await db.ref(`users/${randomId}`).set(newUser);
-    
-    // Create email lookup if email exists
-    if (emailKey) {
-        await db.ref(`email_lookup/${emailKey}`).set({ uid: randomId });
-    }
-    
+
     console.log(`[ARES] New OAuth User Created (${provider}) with ID: ${randomId}`);
     return { ...newUser, id: randomId };
 }
@@ -151,13 +124,12 @@ const riskInterceptor = async (req, res, next) => {
     const { identifier } = req.body;
     if (!identifier) return next();
 
-    const emailKey = identifier.replace(/\./g, '_');
-    const lookup = await db.ref(`email_lookup/${emailKey}`).once('value');
-    
-    if (lookup.exists()) {
-        const userId = lookup.val().uid;
-        const userSnapshot = await db.ref(`users/${userId}`).once('value');
-        const userData = userSnapshot.val();
+    const usersSnapshot = await db.ref('users').once('value');
+    const usersData = usersSnapshot.val() || {};
+    const userEntry = Object.entries(usersData).find(([, value]) => value.email === identifier);
+
+    if (userEntry) {
+        const [userId, userData] = userEntry;
 
         // Trigger LLM-based fraud analysis on 10th failed attempt [cite: 12]
         if (userData.failedAttempts >= 10) {
@@ -190,10 +162,6 @@ app.post('/register', async (req, res) => {
             failedAttempts: 0,
             createdAt: new Date().toISOString()
         });
-
-        // Optional: Create a lookup index to find the randomId by email later
-        const emailKey = identifier.replace(/\./g, '_');
-        await db.ref(`email_lookup/${emailKey}`).set({ uid: randomId });
 
         console.log(`[ARES] New User Created with ID: ${randomId}`);
         res.redirect("/login");
