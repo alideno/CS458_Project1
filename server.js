@@ -270,6 +270,30 @@ const riskInterceptor = async (req, res, next) => {
 
             const riskData = calculateRiskScore(userData, clientIP, {});
 
+            if (userData.accountState === 'Challenged' && riskData.score >= 50) {
+                console.log(`[ARES] Challenged account shows suspicious activity - Escalating to LOCKED`);
+                await db.ref(`users/${userId}`).update({ 
+                    accountState: 'Locked'
+                });
+                return res.status(403).send(`
+                    <html>
+                        <head><style>
+                            body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f3f4f6; }
+                            .error { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; max-width: 500px; }
+                            h2 { color: #dc2626; }
+                        </style></head>
+                        <body>
+                            <div class="error">
+                                <h2>🔒 Account Escalated to Locked</h2>
+                                <p>Suspicious activity detected on your challenged account.</p>
+                                <p>Your account has been locked for security.</p>
+                                <p style="margin-top: 1.5rem; color: #666; font-size: 0.9rem;">Please contact support to unlock your account.</p>
+                            </div>
+                        </body>
+                    </html>
+                `);
+            }
+
             console.log(`[ARES] Risk Score Calculated for ${identifier}: ${riskData.score}/100 (${riskData.riskLevel})`);
             console.log(`       Risk Factors: ${riskData.factors.join(' | ')}`);
 
