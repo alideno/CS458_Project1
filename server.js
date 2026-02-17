@@ -69,7 +69,7 @@ Respond with a JSON object containing:
 {
   "isFraud": boolean,
   "confidence": number (0-100),
-  "recommendation": "ALLOW" | "CHALLENGE" | "BLOCK" | "INVESTIGATE",
+  "recommendation": "Active" | "Challenged" | "Locked" | "Suspended",
   "reason": "brief explanation",
 }`;
 
@@ -96,7 +96,7 @@ Respond with a JSON object containing:
         return {
             isFraud: riskData.score >= 70,
             confidence: riskData.score,
-            recommendation: riskData.score >= 70 ? 'BLOCK' : riskData.score >= 50 ? 'CHALLENGE' : 'ALLOW',
+            recommendation: riskData.score >= 70 ? 'Locked' : riskData.score >= 50 ? 'Challenged' : 'Active',
             reason: 'Fallback rule-based decision (LLM unavailable)',
         };
     }
@@ -290,8 +290,8 @@ const riskInterceptor = async (req, res, next) => {
             }
 
             if (fraudAnalysis) {
-                if (fraudAnalysis.recommendation === 'BLOCK') {
-                    console.log(`[ARES] LLM Recommendation: BLOCK - Transitioning to LOCKED state`);
+                if (fraudAnalysis.recommendation === 'Locked') {
+                    console.log(`[ARES] LLM Recommendation: Locked - Transitioning to LOCKED state`);
                     await db.ref(`users/${userId}`).update({ 
                         accountState: 'Locked'
                     });
@@ -315,8 +315,8 @@ const riskInterceptor = async (req, res, next) => {
                         </html>
                     `);
                 }
-                else if (fraudAnalysis.recommendation === 'CHALLENGE') {
-                    console.log(`[ARES] LLM Recommendation: CHALLENGE - Transitioning to CHALLENGED state`);
+                else if (fraudAnalysis.recommendation === 'Challenged') {
+                    console.log(`[ARES] LLM Recommendation: Challenged - Transitioning to CHALLENGED state`);
                     await db.ref(`users/${userId}`).update({ 
                         accountState: 'Challenged'
                     });
