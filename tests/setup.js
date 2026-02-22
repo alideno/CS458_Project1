@@ -9,7 +9,6 @@ jest.setTimeout(30000);
 // Mock environment variables for testing
 process.env.NODE_ENV = 'test';
 process.env.OPENAI_API_KEY = 'sk-test-key';
-process.env.ANTHROPIC_API_KEY = 'sk-ant-test-key';
 process.env.GOOGLE_CLIENT_ID = 'test-google-id';
 process.env.GOOGLE_CLIENT_SECRET = 'test-google-secret';
 process.env.FACEBOOK_APP_ID = 'test-fb-id';

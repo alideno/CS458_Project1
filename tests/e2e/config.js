@@ -15,8 +15,8 @@ module.exports = {
   // LLM settings
   llm: {
     enabled: true,
-    provider: 'anthropic', // 'anthropic' or 'openai'
-    model: 'claude-3-5-sonnet-20241022',
+    provider: 'openai',
+    model: 'gpt-3.5-turbo',
     temperature: 0.3, // Lower = more deterministic
     maxTokens: 150,
     timeout: 15000

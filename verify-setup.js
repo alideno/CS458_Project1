@@ -102,7 +102,6 @@ async function main() {
     const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
     const requiredDeps = [
       'selenium-webdriver',
-      '@anthropic-ai/sdk',
       'express',
       'firebase-admin',
       'passport-google-oauth20',
@@ -149,11 +148,11 @@ async function main() {
     log('→ Create with: cp .env.example .env', 'yellow');
   }
 
-  if (process.env.ANTHROPIC_API_KEY) {
-    log('✅ ANTHROPIC_API_KEY is set', 'green');
+  if (process.env.OPENAI_API_KEY) {
+    log('✅ OPENAI_API_KEY is set', 'green');
   } else {
-    log('⚠️  ANTHROPIC_API_KEY environment variable not set', 'yellow');
-    log('→ Run: export ANTHROPIC_API_KEY="sk-ant-..."', 'yellow');
+    log('⚠️  OPENAI_API_KEY environment variable not set', 'yellow');
+    log('→ Run: export OPENAI_API_KEY="sk-..."', 'yellow');
   }
 
   // Summary
@@ -163,7 +162,7 @@ async function main() {
     log('\n✅ ALL SYSTEMS READY!\n', 'green');
     log('Next steps:', 'cyan');
     log('1. npm install               # Install dependencies', 'blue');
-    log('2. export ANTHROPIC_API_KEY="sk-ant-..."', 'blue');
+    log('2. export OPENAI_API_KEY="sk-..."', 'blue');
     log('3. npm start                 # Start server', 'blue');
     log('4. npm test                  # Run tests', 'blue');
     log('\nFor more information: see QUICK_START.md', 'cyan');
