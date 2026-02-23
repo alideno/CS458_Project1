@@ -253,7 +253,7 @@ const riskInterceptor = async (req, res, next) => {
                 return res.status(403).send(`
                     <html>
                         <head><style>
-                            body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f3f4f6; }
+                            body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, #dbeafe, #dcfce7); }
                             .error { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; max-width: 500px; }
                             h2 { color: #dc2626; }
                         </style></head>
@@ -278,7 +278,7 @@ const riskInterceptor = async (req, res, next) => {
                 return res.status(403).send(`
                     <html>
                         <head><style>
-                            body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f3f4f6; }
+                            body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, #dbeafe, #dcfce7); }
                             .error { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; max-width: 500px; }
                             h2 { color: #dc2626; }
                         </style></head>
@@ -322,7 +322,7 @@ const riskInterceptor = async (req, res, next) => {
                     return res.status(403).send(`
                         <html>
                             <head><style>
-                                body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f3f4f6; }
+                                body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, #dbeafe, #dcfce7); }
                                 .error { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; max-width: 500px; }
                                 h2 { color: #dc2626; }
                                 .code { font-family: monospace; background: #f3f4f6; padding: 1rem; border-radius: 8px; }
@@ -394,7 +394,7 @@ app.post('/login', riskInterceptor, async (req, res) => {
         res.send(`
             <html>
                 <head><style>
-                    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f3f4f6; }
+                    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, #dbeafe, #dcfce7); }
                     .success { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
                     h2 { color: #10b981; }
                     .detail { font-size: 0.85rem; color: #666; margin: 0.5rem 0; }
@@ -427,7 +427,7 @@ app.post('/login', riskInterceptor, async (req, res) => {
             res.status(401).send(`
                 <html>
                     <head><style>
-                        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f3f4f6; }
+                        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, #dbeafe, #dcfce7); }
                         .error { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
                         h2 { color: #dc2626; }
                     </style></head>
@@ -445,7 +445,7 @@ app.post('/login', riskInterceptor, async (req, res) => {
             res.status(401).send(`
                 <html>
                     <head><style>
-                        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f3f4f6; }
+                        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, #dbeafe, #dcfce7); }
                         .error { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
                         h2 { color: #f97316; }
                         .warning { color: #dc2626; font-weight: bold; }
@@ -520,7 +520,7 @@ app.get('/auth/google/callback',
         res.send(`
             <html>
                 <head><style>
-                    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f3f4f6; }
+                    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, #dbeafe, #dcfce7); }
                     .success { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
                     h2 { color: #10b981; }
                     .detail { font-size: 0.85rem; color: #666; margin: 0.5rem 0; }
@@ -560,7 +560,7 @@ app.get('/auth/facebook/callback',
         res.send(`
             <html>
                 <head><style>
-                    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f3f4f6; }
+                    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, #dbeafe, #dcfce7); }
                     .success { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
                     h2 { color: #3b82f6; }
                     .detail { font-size: 0.85rem; color: #666; margin: 0.5rem 0; }
