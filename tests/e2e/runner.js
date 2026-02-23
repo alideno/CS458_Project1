@@ -4,8 +4,6 @@
  */
 
 const AdvancedTestCases = require('./e2e/test-cases');
-const fs = require('fs');
-const path = require('path');
 
 async function runE2ETests() {
   console.log('\n' + '='.repeat(80));
@@ -38,11 +36,7 @@ async function runE2ETests() {
       }
     };
 
-    // Save report
-    const reportPath = path.join('./healing-logs', 'test-report.json');
-    fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
-
-    console.log('\n📊 Test Report saved to:', reportPath);
+    console.log('\n📊 Test Report generated');
 
     // Exit with appropriate code
     const exitCode = report.summary.failed > 0 ? 1 : 0;

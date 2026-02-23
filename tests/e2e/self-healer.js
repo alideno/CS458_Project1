@@ -4,8 +4,6 @@
  */
 
 const { By, until, WebDriver } = require('selenium-webdriver');
-const fs = require('fs');
-const path = require('path');
 const LLMRepair = require('./utils/llm-repair');
 const HeuristicScorer = require('./utils/heuristic-scorer');
 const DOMAnalyzer = require('./utils/dom-analyzer');
@@ -20,19 +18,11 @@ class SelfHealingFramework {
       maxRetries: options.maxRetries || 3,
       enableShadowDOM: options.enableShadowDOM !== false,
       enableHeuristicScoring: options.enableHeuristicScoring !== false,
-      logPath: options.logPath || './healing-logs',
       useLLM: options.useLLM !== false,
       ...options
     };
 
-    this.ensureLogDirectory();
     this.initializeShadowDOMListener();
-  }
-
-  ensureLogDirectory() {
-    if (!fs.existsSync(this.options.logPath)) {
-      fs.mkdirSync(this.options.logPath, { recursive: true });
-    }
   }
 
   initializeShadowDOMListener() {
@@ -264,9 +254,6 @@ class SelfHealingFramework {
 
       // Store with key = description
       this.historicalMetadata.set(description, metadata);
-
-      // Log metadata to file
-      this.logMetadata(metadata);
     } catch (error) {
       console.warn(`Could not store metadata: ${error.message}`);
     }
@@ -297,30 +284,6 @@ class SelfHealingFramework {
    */
   async logHealing(healingEvent) {
     this.healingHistory.push(healingEvent);
-
-    const logFile = path.join(this.options.logPath, 'healing-log.json');
-    const logData = {
-      timestamp: new Date().toISOString(),
-      totalHealings: this.healingHistory.length,
-      events: this.healingHistory
-    };
-
-    fs.writeFileSync(logFile, JSON.stringify(logData, null, 2));
-  }
-
-  /**
-   * Log element metadata
-   */
-  logMetadata(metadata) {
-    const logFile = path.join(this.options.logPath, 'element-metadata.json');
-    let existingData = [];
-
-    if (fs.existsSync(logFile)) {
-      existingData = JSON.parse(fs.readFileSync(logFile, 'utf8'));
-    }
-
-    existingData.push(metadata);
-    fs.writeFileSync(logFile, JSON.stringify(existingData, null, 2));
   }
 
   /**

@@ -47,16 +47,6 @@ module.exports = {
     debounceMs: 100
   },
 
-  // Logging
-  logging: {
-    verbose: true,
-    logPath: './healing-logs',
-    logLevel: 'info', // 'debug', 'info', 'warn', 'error'
-    maxLogSize: 10485760, // 10MB
-    logMetadata: true,
-    logHealingEvents: true
-  },
-
   // Browser settings
   browser: {
     chrome: {

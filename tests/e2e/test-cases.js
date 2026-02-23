@@ -45,8 +45,7 @@ class AdvancedTestCases {
         maxRetries: 3,
         enableShadowDOM: true,
         enableHeuristicScoring: true,
-        useLLM: true,
-        logPath: './healing-logs'
+        useLLM: true
       });
 
       console.log(`✅ WebDriver initialized for ${browser}`);
