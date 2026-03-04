@@ -26,10 +26,11 @@
 Clone the repository and install the core dependencies:
 ```bash
 npm install express ejs firebase-admin passport passport-google-oauth20 passport-facebook express-session selenium-webdriver
+```
 
-
-### 3. .env file
-
+### 3. Environment Configuration
+Create a `.env` file in the project root with the following variables:
+```env
 # Google OAuth 2.0
 GOOGLE_CLIENT_ID=your_google_client_id_here
 GOOGLE_CLIENT_SECRET=your_google_client_secret_here
@@ -45,3 +46,4 @@ CALLBACK_URL=http://localhost:3000
 
 # OpenAI API
 OPENAI_API_KEY=your_openai_api_key_here
+```
