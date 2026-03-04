@@ -26,3 +26,22 @@
 Clone the repository and install the core dependencies:
 ```bash
 npm install express ejs firebase-admin passport passport-google-oauth20 passport-facebook express-session selenium-webdriver
+
+
+### 3. .env file
+
+# Google OAuth 2.0
+GOOGLE_CLIENT_ID=your_google_client_id_here
+GOOGLE_CLIENT_SECRET=your_google_client_secret_here
+
+# Facebook OAuth 2.0
+FACEBOOK_APP_ID=your_facebook_app_id_here
+FACEBOOK_APP_SECRET=your_facebook_app_secret_here
+
+# Server Configuration
+PORT=3000
+NODE_ENV=development
+CALLBACK_URL=http://localhost:3000
+
+# OpenAI API
+OPENAI_API_KEY=your_openai_api_key_here
